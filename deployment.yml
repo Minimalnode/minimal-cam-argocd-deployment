@@ -1,13 +1,33 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx
+  name: argocd-nginx
   labels:
     app: argocd-nginx
 spec:
   containers:
-    - name: nginx
+    - name: argocd-nginx
       image: nginx
+      ports:
+        - containerPort: 80
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "128Mi"
+        limits:
+          cpu: "250m"
+          memory: "256Mi"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: argocd-httpd
+  labels:
+    app: argocd-httpd
+spec:
+  containers:
+    - name: argocd-httpd
+      image: httpd
       ports:
         - containerPort: 80
       resources:
